@@ -79,7 +79,7 @@ const projects = [
       "Developed utilities to monitor processes and system resources using /proc filesystem"
     ],
     tech: ["C", "Linux System Programming"],
-    github: "https://github.com/KartikJare/Kernel_Interface_Utility_Suite",
+    github: "https://github.com/KartikJare/Kernel_Module_Utility_Suite",
   },
 ];
 

@@ -22,7 +22,7 @@ const glowVariant = {
 }
 
 export default function Home() {
-    const roles = useMemo(() => ["Software Developer", "web Developer"], [])
+    const roles = useMemo(() => ["Software Developer", "web Developer","System Programmer"], [])
     const [index, SetIndex] = React.useState(0);
     const [subindex, SetSubIndex] = React.useState(0);
     const [deleting, SetDeleting] = React.useState(false);
@@ -95,7 +95,7 @@ export default function Home() {
                             <a href="#projects"
                                 className="px-6 py-3 rounded-full font-medium text-lg text-white bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63] shadow-lg hover:scale-105 transition-all"
                             >View My Work</a>
-                            <a href="/Resume.pdf"
+                            <a href="/Kartik-portfolio/Kartik_Ganesh_Jare_resume.pdf"
                                 download
                                 className="px-6 py-3 rounded-full text-lg font-medium text-black bg-white hover:bg-gray-200 shadow-lg hover:scale-105 transition-all"
                             >My Resume</a>

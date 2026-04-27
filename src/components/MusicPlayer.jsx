@@ -1,13 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 
+const base = import.meta.env.BASE_URL;
+
 const MusicPlayer = () => {
   const playlist = [
-    "/iwasneverthere.mp3",
-    "/escapism.mp3",
-    "/blue.mp3",
-    "/YAD.mp3",
-    "/stars.mp3",
+    `${base}iwasneverthere.mp3`,
+    `${base}escapism.mp3`,
+    `${base}blue.mp3`,
+    `${base}YAD.mp3`,
+    `${base}stars.mp3`,
   ];
 
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
