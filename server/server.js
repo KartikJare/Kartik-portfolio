@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+console.log("Gemini Key Exists:", !!process.env.GEMINI_API_KEY);
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
@@ -46,11 +48,19 @@ https://kartikjare.github.io/Kartik-portfolio/
 function getLocalAnswer(message) {
   const msg = message.toLowerCase();
 
-  if (msg.includes("who is kartik") || msg.includes("about") || msg.includes("name")) {
+  if (
+    msg.includes("who is kartik") ||
+    msg.includes("about") ||
+    msg.includes("name")
+  ) {
     return "Kartik Ganesh Jare is a Backend & Systems Software Developer focused on C, C++, Java, Python, Win32 API, Linux system programming, React, and Spring Boot.";
   }
 
-  if (msg.includes("skill") || msg.includes("technology") || msg.includes("tech stack")) {
+  if (
+    msg.includes("skill") ||
+    msg.includes("technology") ||
+    msg.includes("tech stack")
+  ) {
     return "Kartik's main skills are C, C++, Java, Python, JavaScript, React, Spring Boot, Linux System Programming, Win32 API, SQL, MongoDB, HTML, CSS, and C#.";
   }
 
@@ -62,12 +72,29 @@ function getLocalAnswer(message) {
     return "Kartik has Java projects like Chat Messenger with Log Facility, Study Tracker App using Java Swing, and Edu Track Classroom Student Management Portal using Spring Boot.";
   }
 
-  if (msg.includes("python") || msg.includes("machine learning") || msg.includes("ml")) {
+  if (
+    msg.includes("python") ||
+    msg.includes("machine learning") ||
+    msg.includes("ml")
+  ) {
     return "Kartik works with Python for automation and machine learning using Pandas, NumPy, Matplotlib, Scikit-learn, Logistic Regression, KNN, Decision Tree, and MLP.";
   }
 
-  if (msg.includes("contact") || msg.includes("github") || msg.includes("email")) {
+  if (
+    msg.includes("contact") ||
+    msg.includes("github") ||
+    msg.includes("email")
+  ) {
     return "You can contact Kartik through the contact section of this portfolio. His GitHub username is KartikJare.";
+  }
+
+  if (
+    msg.includes("company") ||
+    msg.includes("recruiter") ||
+    msg.includes("hiring") ||
+    msg.includes("hr")
+  ) {
+    return "Hello, thanks for visiting Kartik's portfolio. Kartik is skilled in C, C++, Java, Python, React, Spring Boot, Win32 API, and Linux system programming. You can explore his projects and contact him through this portfolio.";
   }
 
   return null;
@@ -77,11 +104,18 @@ app.get("/", (req, res) => {
   res.send("Kartik Portfolio Chatbot API is running...");
 });
 
+app.get("/health", (req, res) => {
+  res.json({
+    status: "ok",
+    geminiKeyExists: !!process.env.GEMINI_API_KEY,
+  });
+});
+
 app.post("/chat", async (req, res) => {
   try {
     const { message } = req.body;
 
-    if (!message) {
+    if (!message || message.trim() === "") {
       return res.status(400).json({
         reply: "Please enter a valid message.",
       });
@@ -92,6 +126,14 @@ app.post("/chat", async (req, res) => {
     if (localReply) {
       return res.json({
         reply: localReply,
+        source: "local",
+      });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.json({
+        reply: "Hi, thanks for visiting Kartik's portfolio. I can help you know about Kartik's skills, projects, and contact details.",
+        source: "fallback-no-key",
       });
     }
 
@@ -100,6 +142,7 @@ You are Kartik Ganesh Jare's portfolio assistant.
 
 Rules:
 - Answer only about Kartik, his skills, projects, portfolio, and contact.
+- If a recruiter or company person introduces themselves, greet them professionally.
 - Keep answer short and professional.
 - Do not create fake information.
 
@@ -111,18 +154,23 @@ ${message}
 `;
 
     const response = await ai.models.generateContent({
-     model: "gemini-1.5-flash",
+      model: "gemini-1.5-flash",
       contents: prompt,
     });
 
-    res.json({
-      reply: response.text,
+    return res.json({
+      reply:
+        response.text ||
+        "Thanks for visiting Kartik's portfolio. You can ask me about his skills, projects, or contact details.",
+      source: "gemini",
     });
   } catch (error) {
-    console.log(error);
+    console.error("Gemini API Error:", error.message);
+    console.error("Full Error:", error);
 
-    res.status(500).json({
-      reply: "Sorry, chatbot API is not working right now.",
+    return res.json({
+      reply: "Hi, thanks for visiting Kartik's portfolio. I can help you know about Kartik's skills, projects, and contact details.",
+      source: "fallback-error",
     });
   }
 });
