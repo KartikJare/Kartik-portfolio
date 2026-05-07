@@ -13,7 +13,7 @@ export default function Chatbot() {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const API_URL =
-        import.meta.env.VITE_CHATBOT_API_URL || "http://localhost:5000";
+    import.meta.env.VITE_CHATBOT_API_URL || "http://localhost:5000";
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
