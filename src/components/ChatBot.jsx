@@ -106,10 +106,6 @@ export default function Chatbot() {
                             <h2 className="font-bold text-lg tracking-wide text-cyan-300">
                                 Kartik AI Agent
                             </h2>
-
-                            <p className="text-xs text-cyan-100/70">
-                                Skills • Projects • GitHub • LinkedIn
-                            </p>
                         </div>
 
                         <button
