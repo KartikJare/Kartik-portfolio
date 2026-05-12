@@ -65,7 +65,8 @@ ${portfolioData.links.portfolio}`;
 }
 
 export function getEmailLink() {
-  return `Email:
+  return `You can contact Kartik via email:
+
 ${portfolioData.links.email}`;
 }
 
@@ -177,21 +178,39 @@ export function detectIntentAndRunTool(message) {
     return getRecruiterReply();
   }
 
-  if (msg.includes("github")) {
-    return getGitHubLink();
-  }
+    if (
+        msg.includes("github") ||
+        msg.includes("git hub") ||
+        msg.includes("github link") ||
+        msg.includes("share github")
+    )
+    {
+        return getGitHubLink();
+    }
 
-  if (msg.includes("linkedin")) {
-    return getLinkedInLink();
-  }
+    if (
+        msg.includes("linkedin") ||
+        msg.includes("linkedln") ||
+        msg.includes("linked in") ||
+        msg.includes("linkedin link")
+    )
+    {
+        return getLinkedInLink();
+    }
 
   if (msg.includes("portfolio") || msg.includes("website")) {
     return getPortfolioLink();
   }
 
-  if (msg.includes("email")) {
-    return getEmailLink();
-  }
+    if (
+        msg.includes("email") ||
+        msg.includes("mail") ||
+        msg.includes("gmail") ||
+        msg.includes("e-mail") ||
+        msg.includes("contact mail")
+    ) {
+        return getEmailLink();
+    }
 
   if (msg.includes("contact")) {
     return getContactInfo();
