@@ -51,23 +51,30 @@ export function getProjectsByType(type) {
 
 export function getGitHubLink() {
   return `GitHub Profile:
-${portfolioData.links.github}`;
+  ${portfolioData.links.github}`;
 }
 
 export function getLinkedInLink() {
   return `LinkedIn Profile:
-${portfolioData.links.linkedin}`;
+  ${portfolioData.links.linkedin}`;
+}
+export function getGitHubAndLinkedInLinks() {
+  return `GitHub Profile:
+  ${portfolioData.links.github}
+
+  LinkedIn Profile:
+  ${portfolioData.links.linkedin}`;
 }
 
 export function getPortfolioLink() {
   return `Portfolio Website:
-${portfolioData.links.portfolio}`;
+  ${portfolioData.links.portfolio}`;
 }
 
 export function getEmailLink() {
   return `You can contact Kartik via email:
 
-${portfolioData.links.email}`;
+  ${portfolioData.links.email}`;
 }
 
 export function getContactInfo() {
@@ -177,7 +184,16 @@ export function detectIntentAndRunTool(message) {
   ) {
     return getRecruiterReply();
   }
-
+  if (
+    msg.includes("github and linkedin") ||
+    msg.includes("linkedin and github") ||
+    msg.includes("share github and linkedin") ||
+    msg.includes("github linkedin") ||
+    msg.includes("github & linkedin") ||
+    msg.includes("linkedin & github")
+  ) {
+  return getGitHubAndLinkedInLinks();
+  }
     if (
         msg.includes("github") ||
         msg.includes("git hub") ||
@@ -270,6 +286,6 @@ export function detectIntentAndRunTool(message) {
   if (msg.includes("project") || msg.includes("work")) {
     return getAllProjects();
   }
-
+  
   return null;
 }
