@@ -154,8 +154,14 @@ export default function Contact() {
                 <option value="Web Development" className="text-black">
                   Web Development
                 </option>
-                <option value="Mobile Application" className="text-black">
-                  Mobile Application
+                <option value="Full Stack Development" className="text-black">
+                  Full Stack Development
+                </option>
+                <option value="AI/ML Solutions" className="text-black">
+                  AI/ML Solutions
+                </option>
+                <option value="Mobile App Development" className="text-black">
+                  Mobile App Development
                 </option>
                 <option value="Other" className="text-black">
                   Others
