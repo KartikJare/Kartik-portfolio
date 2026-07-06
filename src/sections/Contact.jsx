@@ -163,7 +163,7 @@ export default function Contact() {
                 <option value="Mobile App Development" className="text-black">
                   Mobile App Development
                 </option>
-                <option value="Other" className="text-black">
+                <option value="Others" className="text-black">
                   Others
                 </option>
               </select>
@@ -174,7 +174,7 @@ export default function Contact() {
             </div>
 
             {/* Budget field */}
-            {fromData.service && fromData.service !== "Other" && (
+            {fromData.service && fromData.service !== "Others" && (
               <div className="flex flex-col">
                 <label className="mb-1">
                   Budget <span className="text-red-500">*</span>
