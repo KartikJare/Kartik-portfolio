@@ -11,7 +11,7 @@ import Skills from "./sections/Skills";
 // import Testimonials from "./sections/Testimonials";
 import IntroAnimation from "./components/IntroAnimation";
 import MusicPlayer from "./components/MusicPlayer";
-import Chatbot from "./components/Chatbot";
+import ChatBot from "./components/ChatBot";
 
 export default function App(){
   const [introDone, setIntroDone] = useState(false);
@@ -21,7 +21,7 @@ export default function App(){
       <CustomCursor/>
       <Navbar/>
       <MusicPlayer />
-      <Chatbot/>
+      <ChatBot/>
 
       {/* Intro always on top until it finishes */}
       {!introDone && <IntroAnimation onFinish={() => setIntroDone(true)} />}
