@@ -1,6 +1,42 @@
 import { useState, useEffect } from "react";
 import { FaRobot, FaTimes, FaPaperPlane } from "react-icons/fa";
 
+function renderMessageWithLinks(text) {
+    const urlRegex = /(https?:\/\/[^\s]+)|([\w.+-]+@[\w-]+\.[\w.-]+)/g;
+
+    const parts = text.split(urlRegex).filter(Boolean);
+
+    return parts.map((part, i) => {
+        if (/^https?:\/\//.test(part)) {
+            return (
+                <a
+                    key={i}
+                    href={part}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-400 underline hover:text-cyan-300 break-all"
+                >
+                    {part}
+                </a>
+            );
+        }
+
+        if (/^[\w.+-]+@[\w-]+\.[\w.-]+$/.test(part)) {
+            return (
+                <a
+                    key={i}
+                    href={`mailto:${part}`}
+                    className="text-cyan-400 underline hover:text-cyan-300 break-all"
+                >
+                    {part}
+                </a>
+            );
+        }
+
+        return <span key={i}>{part}</span>;
+    });
+}
+
 export default function Chatbot() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -166,7 +202,9 @@ export default function Chatbot() {
                                     }`}
                                 >
                                     <div className="whitespace-pre-line break-words">
-                                        {message.text}
+                                        {message.role === "bot"
+                                            ? renderMessageWithLinks(message.text)
+                                            : message.text}
                                     </div>
                                 </div>
                             </div>
